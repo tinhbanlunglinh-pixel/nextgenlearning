@@ -1,0 +1,8 @@
+{
+  "name": "ENGLISH NEXTGEN ENGLISH VERSON 3",
+  "description": "Learn English, Lead the way - Success with NEXTGEN ENGLISH. H�?thống AI h�?tr�?giảng dạy và học tập Tiếng Anh dành cho tr�?em.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
