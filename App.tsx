@@ -154,7 +154,7 @@ function App() {
           <div className="flex items-center gap-2 sm:gap-4 cursor-pointer">
             <NextgenEnglishLogo className="w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-xl sm:rounded-2xl p-1 sm:p-1.5 shadow-lg" color="#16a34a" />
             <div className="flex flex-col">
-              <h1 className="text-base sm:text-xl md:text-3xl font-black text-highlight-400 uppercase tracking-tighter font-display">NEXTGEN ENGLISH</h1>
+              <h1 className="text-base sm:text-xl md:text-3xl font-black text-brand-300 uppercase tracking-tighter font-display">NEXTGEN ENGLISH</h1>
               <span className="text-[8px] sm:text-[10px] font-black text-white uppercase tracking-[0.1em] sm:tracking-[0.2em] opacity-90 font-sans hidden xs:block">Learn English, Lead the way</span>
             </div>
           </div>
@@ -396,24 +396,24 @@ function App() {
         {/* Story, MindMap and Prompt tabs removed */}
       </main>
 
-      <footer className="bg-brand-900 text-white border-t-[10px] border-brand-800 pt-20 pb-10">
+            <footer className="bg-brand-900 text-white border-t-[10px] border-brand-800 pt-20 pb-10">
         <div className="max-w-[1400px] mx-auto px-6 text-center md:text-left">
           <div className="grid md:grid-cols-3 gap-12 items-start mb-16">
             <div className="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
-              <div className="bg-white p-4 rounded-[2rem] w-fit shadow-xl border-4 border-highlight-400"><NextgenEnglishLogo className="w-20 h-20" color="#166534" /></div>
-              <div><h3 className="font-black text-2xl text-highlight-400 uppercase leading-none font-display">NEXTGEN ENGLISH</h3><p className="text-brand-100 font-black text-base mt-2 opacity-90 italic">“Learn English, Lead the way. Success with NEXTGEN ENGLISH�?"</p></div>
+              <div className="bg-white p-4 rounded-[2rem] w-fit shadow-xl border-4 border-brand-300"><NextgenEnglishLogo className="w-20 h-20" color="#15803d" /></div>
+              <div><h3 className="font-black text-2xl text-brand-300 uppercase leading-none font-display">NEXTGEN ENGLISH</h3><p className="text-white font-black text-base mt-2 opacity-90 italic">“Learn English, Lead the way”</p></div>
             </div>
             <div className="space-y-6 text-center md:text-left">
-              <h4 className="font-black text-highlight-400 text-xl uppercase tracking-[0.2em] border-b-2 border-white/10 pb-2 font-sans">Liên H�?</h4>
+              <h4 className="font-black text-brand-300 text-xl uppercase tracking-[0.2em] border-b-2 border-white/10 pb-2 font-sans">Liên Hệ</h4>
               <ul className="space-y-4 font-black text-brand-100 text-lg">
-                <li className="flex items-start gap-3">📍<span>Ngõ 717 Mạc Đăng Doanh, Hải Phòng.</span></li>
-                <li className="flex items-center gap-3">📞<a href="tel:0364409436" className="hover:text-highlight-400 transition-colors">NEXTGEN ENGLISH: 0364409436</a></li>
-                <li className="flex items-center gap-3">✉️<a href="mailto:nguyendungvn8@gmail.com" className="hover:text-highlight-400 transition-colors text-base">nguyendungvn8@gmail.com</a></li>
-                <li className="flex items-center gap-3">🌐<a href="https://www.facebook.com/profile.php?id=100054264771359" target="_blank" className="hover:text-highlight-400 transition-colors underline decoration-2">Fanpage Facebook</a></li>
+                <li className="flex items-start gap-3">📍<span>Số 32 Tổ 31B K9, Quang Trung, Phường Uông Bí, Quảng Ninh</span></li>
+                <li className="flex items-center gap-3">📞<a href="tel:0986197229" className="hover:text-white transition-colors">Hotline: 0986 197 229 / 0334 141 989</a></li>
+                <li className="flex items-center gap-3">✉️<a href="mailto:nextgen.uongbi@gmail.com" className="hover:text-white transition-colors text-base">nextgen.uongbi@gmail.com</a></li>
+                <li className="flex items-center gap-3">🌐<a href="https://www.facebook.com/people/Trung-T%C3%A2m-Ngoa%CC%A3i-Ng%C6%B0%CC%83-Nextgen-U%C3%B4ng-Bi%CC%81/61575042515566/" target="_blank" className="hover:text-white transition-colors underline decoration-2">Fanpage Facebook</a></li>
               </ul>
             </div>
             <div className="space-y-6 text-center md:text-left">
-                <h4 className="font-black text-highlight-400 text-xl uppercase tracking-[0.2em] border-b-2 border-white/10 pb-2 font-sans">Slogan</h4>
+                <h4 className="font-black text-brand-300 text-xl uppercase tracking-[0.2em] border-b-2 border-white/10 pb-2 font-sans">Slogan</h4>
                 <div className="bg-white/5 p-8 rounded-[2rem] border-2 border-white/10 shadow-xl backdrop-blur-sm"><p className="text-xl font-black italic text-white mb-3 leading-tight">“Learn English, Lead the way”</p><p className="text-brand-300 font-black text-base uppercase tracking-widest font-sans">HỌC TIẾNG ANH . DẪN LỐI TƯƠNG LAI.</p></div>
             </div>
           </div>
@@ -422,7 +422,7 @@ function App() {
             <div className="flex gap-4">
               <a href="#" className="hover:text-white transition-colors">Chính sách bảo mật</a>
               <span className="text-white/20">|</span>
-              <a href="#" className="hover:text-white transition-colors">?i?u kho?n d?ch v?</a>
+              <a href="#" className="hover:text-white transition-colors">Điều khoản dịch vụ</a>
             </div>
           </div>
         </div>
