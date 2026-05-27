@@ -82,7 +82,7 @@ export const MindMap: React.FC<MindMapProps> = ({ data }) => {
     <div className="flex flex-col items-center w-full pb-10">
       <div className="mb-8">
         <button onClick={handleDownload} disabled={isDownloading} className="px-14 py-5 bg-brand-600 text-white rounded-[2rem] font-black text-2xl shadow-2xl hover:bg-brand-700 transition-all transform hover:scale-105 border-b-[10px] border-brand-800 active:border-b-0 uppercase">
-          {isDownloading ? 'Đang v�?sơ đ�?..' : '🎨 Xuất Sơ Đ�?Tony Buzan'}
+          {isDownloading ? 'Đang v�?sơ đ�?..' : '🎨 Xuất Sơ Đ�?Tony Buzan'}
         </button>
       </div>
       <div className="w-full max-w-full overflow-hidden flex justify-center bg-slate-50/50 p-6 md:p-10 rounded-[4rem] border-4 border-slate-100">
@@ -90,7 +90,7 @@ export const MindMap: React.FC<MindMapProps> = ({ data }) => {
           <svg width={CANVAS_WIDTH} height={CANVAS_HEIGHT} className="absolute inset-0 z-0">{lines}</svg>
           
           <div className="absolute top-10 right-12 z-40 flex flex-col items-center bg-white/80 p-4 rounded-3xl border border-brand-100 backdrop-blur-sm">
-             <div className="w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center text-white text-2xl mb-1 shadow-lg">👩‍�?/div>
+             <div className="w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center text-white text-2xl mb-1 shadow-lg">👩‍�?/div>
              <span className="font-black text-[12px] uppercase tracking-widest text-brand-900">Trung Tâm English NEXTGEN ENGLISH</span>
           </div>
 

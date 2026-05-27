@@ -50,7 +50,7 @@ export const LessonCertificate: React.FC<LessonCertificateProps> = ({
       link.href = dataUrl;
       link.click();
     } catch (err) {
-      alert("Lỗi tải chứng nhận, vui lòng th�?lại!");
+      alert("Lỗi tải chứng nhận, vui lòng th�?lại!");
     }
   };
 
@@ -61,9 +61,9 @@ export const LessonCertificate: React.FC<LessonCertificateProps> = ({
         <h2 className="text-white font-bold text-xl">📜 Giấy chứng nhận</h2>
         <div className="flex gap-3">
           <button onClick={downloadCert} className="bg-emerald-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-400 transition-all flex items-center gap-2">
-            💾 Tải v�?          </button>
+            💾 Tải v�?          </button>
           <button onClick={onClose} className="bg-rose-500 text-white px-4 py-3 rounded-xl font-bold hover:bg-rose-600 transition-all">
-            �?          </button>
+            �?          </button>
         </div>
       </div>
 
@@ -73,7 +73,7 @@ export const LessonCertificate: React.FC<LessonCertificateProps> = ({
           ref={certRef}
           className="w-[900px] h-[640px] bg-white rounded-lg shadow-2xl shrink-0 origin-center scale-[0.35] sm:scale-[0.5] md:scale-[0.7] lg:scale-[0.85] xl:scale-100 overflow-hidden"
         >
-          {/* Border Frame - Cân đối, bao quanh kh�?giấy */}
+          {/* Border Frame - Cân đối, bao quanh kh�?giấy */}
           <div className="absolute inset-3 border-[3px] border-brand-400 rounded-lg pointer-events-none"></div>
           <div className="absolute inset-5 border-[2px] border-brand-300 rounded-lg pointer-events-none"></div>
 
@@ -83,7 +83,7 @@ export const LessonCertificate: React.FC<LessonCertificateProps> = ({
             {/* Header */}
             <div className="text-center">
               <div className="w-14 h-14 bg-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-2 shadow-lg">🏫</div>
-              <p className="text-xs font-bold text-brand-600 uppercase tracking-[0.25em] mb-1">Trung tâm Ngoại Ng�?English NEXTGEN ENGLISH</p>
+              <p className="text-xs font-bold text-brand-600 uppercase tracking-[0.25em] mb-1">Trung tâm Ngoại Ng�?English NEXTGEN ENGLISH</p>
               <h1 className="text-3xl font-black text-brand-800 uppercase tracking-wide">GIẤY CHỨNG NHẬN</h1>
               <p className="text-sm text-slate-500 font-semibold mt-1">Hoàn thành xuất sắc bài học</p>
             </div>
@@ -97,7 +97,7 @@ export const LessonCertificate: React.FC<LessonCertificateProps> = ({
 
             {/* Topic */}
             <div className="text-center px-8">
-              <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">Ch�?đ�?học tập</p>
+              <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">Ch�?đ�?học tập</p>
               <p className="text-lg font-bold text-brand-700 italic max-w-md leading-tight mx-auto">"{topic}"</p>
             </div>
 
@@ -111,7 +111,7 @@ export const LessonCertificate: React.FC<LessonCertificateProps> = ({
                     <span className="text-base text-white/80 font-bold">/10</span>
                   </div>
                 </div>
-                <p className="text-xs font-bold text-slate-500 uppercase mt-2 tracking-wider">Điểm s�?/p>
+                <p className="text-xs font-bold text-slate-500 uppercase mt-2 tracking-wider">Điểm s�?"</p>
               </div>
 
               {/* Evaluation Badge */}
@@ -134,7 +134,7 @@ export const LessonCertificate: React.FC<LessonCertificateProps> = ({
                 <div className="w-28 h-0.5 bg-slate-800 mb-2"></div>
                 <p className="text-xl font-black text-slate-800" style={{ fontFamily: 'Georgia, serif' }}>NEXTGEN ENGLISH</p>
                 <p className="text-xs text-brand-600 font-bold mt-1">Giám đốc Trung tâm</p>
-                <p className="text-[10px] text-slate-400">Trung tâm Ngoại Ng�?English NEXTGEN ENGLISH</p>
+                <p className="text-[10px] text-slate-400">Trung tâm Ngoại Ng�?English NEXTGEN ENGLISH</p>
               </div>
             </div>
           </div>

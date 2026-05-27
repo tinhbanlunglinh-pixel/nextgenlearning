@@ -68,8 +68,8 @@ export const PracticeSection: React.FC<PracticeSectionProps> = ({ content, onSco
                                     >
                                         <span className="mr-6 font-black text-slate-300">{String.fromCharCode(65 + idx)}.</span>
                                         {opt}
-                                        {isSelected && idx === q.correctAnswer && <span className="absolute right-8 top-1/2 -translate-y-1/2 text-4xl">âœ?/span>}
-                                        {isSelected && idx === userChoice && idx !== q.correctAnswer && <span className="absolute right-8 top-1/2 -translate-y-1/2 text-4xl">â?/span>}
+                                        {isSelected && idx === q.correctAnswer && <span className="absolute right-8 top-1/2 -translate-y-1/2 text-4xl">ï¿½</span>}
+                                        {isSelected && idx === userChoice && idx !== q.correctAnswer && <span className="absolute right-8 top-1/2 -translate-y-1/2 text-4xl">ï¿½</span>}
                                     </button>
                                 );
                             })}

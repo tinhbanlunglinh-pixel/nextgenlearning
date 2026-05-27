@@ -18,7 +18,7 @@ export const WritingSection: React.FC<WritingSectionProps> = ({ topic }) => {
       const data = await correctWriting(text, topic);
       setResult(data);
     } catch (e) {
-      alert("NEXTGEN ENGLISH đang bận một chút, con th�?lại sau nhé!");
+      alert("NEXTGEN ENGLISH đang bận một chút, con th�?lại sau nhé!");
     } finally {
       setLoading(false);
     }
@@ -72,7 +72,7 @@ export const WritingSection: React.FC<WritingSectionProps> = ({ topic }) => {
                         </div>
                     </div>
                     <div className="flex-1 text-center md:text-left">
-                        <h3 className="text-2xl md:text-3xl font-black text-brand-800 mb-4 uppercase tracking-tight">Lời khen t�?NEXTGEN ENGLISH 🌟</h3>
+                        <h3 className="text-2xl md:text-3xl font-black text-brand-800 mb-4 uppercase tracking-tight">Lời khen t�?NEXTGEN ENGLISH 🌟</h3>
                         <p className="text-xl md:text-2xl font-black text-slate-700 italic leading-relaxed">
                             "{renderFeedback(result.feedback)}"
                         </p>
@@ -93,8 +93,8 @@ export const WritingSection: React.FC<WritingSectionProps> = ({ topic }) => {
                         <ul className="space-y-3">
                             {(result.errors || []).map((err: any, i: number) => (
                                 <li key={i} className="flex items-start gap-3 text-lg">
-                                    <span className="text-rose-500 shrink-0 mt-1">�?/span>
-                                    <p className="text-slate-600 text-sm"><span className="line-through text-slate-400 mr-2">{err.original}</span> <span className="text-emerald-600 font-black mr-2">�?{err.fixed}</span> <span className="text-slate-500 font-bold">({err.reason})</span></p>
+                                    <span className="text-rose-500 shrink-0 mt-1">�</span>
+                                    <p className="text-slate-600 text-sm"><span className="line-through text-slate-400 mr-2">{err.original}</span> <span className="text-emerald-600 font-black mr-2">�?{err.fixed}</span> <span className="text-slate-500 font-bold">({err.reason})</span></p>
                                 </li>
                             ))}
                         </ul>

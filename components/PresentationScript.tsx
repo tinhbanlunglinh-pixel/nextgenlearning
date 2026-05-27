@@ -77,7 +77,7 @@ export const PresentationScriptView: React.FC<PresentationScriptProps> = ({ scri
         const result = await evaluateSpeech(base64Audio);
         setEvaluation(result);
       } catch (e) { 
-        alert("Lỗi chấm điểm bài nói, con hãy th�?lại nhé!"); 
+        alert("Lỗi chấm điểm bài nói, con hãy th�?lại nhé!"); 
       } finally { 
         setIsEvaluating(false); 
       }
@@ -112,7 +112,7 @@ export const PresentationScriptView: React.FC<PresentationScriptProps> = ({ scri
             disabled={isPlaying} 
             className={`px-12 py-5 rounded-full font-black text-2xl flex items-center gap-4 shadow-2xl transition-all transform active:scale-95 border-b-[10px] ${isPlaying ? 'bg-red-500 text-white border-red-700' : 'bg-emerald-500 text-white hover:bg-emerald-600 border-emerald-700'}`}
           >
-            <span className={`text-3xl ${isPlaying ? 'animate-pulse' : ''}`}>{isPlaying ? '�? : '🔊'}</span> 
+            <span className={`text-3xl ${isPlaying ? 'animate-pulse' : ''}`}>{isPlaying ? '�? : '🔊'}</span> 
             {isPlaying ? 'ĐANG PHÁT...' : 'NGHE MẪU'}
           </button>
         </div>
@@ -151,7 +151,7 @@ export const PresentationScriptView: React.FC<PresentationScriptProps> = ({ scri
       <div className="bg-slate-900 rounded-[5rem] p-16 flex flex-col items-center gap-12 border-[15px] border-emerald-50 shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-emerald-400/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <div className="text-center z-10 space-y-4">
-          <h4 className="text-6xl font-black text-white uppercase tracking-tighter">🏆 TH�?THÁCH THUYẾT TRÌNH</h4>
+          <h4 className="text-6xl font-black text-white uppercase tracking-tighter">🏆 TH�?THÁCH THUYẾT TRÌNH</h4>
           <p className="text-emerald-400 font-black text-2xl italic">"Bé hãy nhấn Micro và bắt đầu thuyết trình nhé!"</p>
         </div>
         
@@ -163,7 +163,7 @@ export const PresentationScriptView: React.FC<PresentationScriptProps> = ({ scri
              onClick={isRecording ? stopRecording : startRecording} 
              className={`w-48 h-48 rounded-full flex items-center justify-center shadow-2xl transition-all transform active:scale-90 border-[12px] border-white/20 relative ${isRecording ? 'bg-red-600 text-white' : 'bg-emerald-500 text-white hover:bg-emerald-400'}`}
            >
-             <span className="text-8xl">{isRecording ? '�? : '🎤'}</span>
+             <span className="text-8xl">{isRecording ? '�? : '🎤'}</span>
            </button>
         </div>
 
@@ -212,8 +212,8 @@ export const PresentationScriptView: React.FC<PresentationScriptProps> = ({ scri
               
               <div className="flex flex-col items-center mb-10">
                 <div className="w-28 h-28 bg-emerald-600 rounded-3xl flex items-center justify-center text-white text-6xl mb-6 shadow-2xl transform rotate-3">
-                  🗣�?                </div>
-                <h2 className="text-2xl font-black text-emerald-800 uppercase tracking-[0.4em] font-sans mb-2">TRUNG TÂM ANH NG�?NEXTGEN ENGLISH</h2>
+                  🗣�?                </div>
+                <h2 className="text-2xl font-black text-emerald-800 uppercase tracking-[0.4em] font-sans mb-2">TRUNG TÂM ANH NG�?NEXTGEN ENGLISH</h2>
                 <h1 className="text-7xl font-black text-brand-600 uppercase font-display tracking-tight border-b-8 border-brand-100 pb-2">EXCELLENT SPEAKING AWARD</h1>
               </div>
 
