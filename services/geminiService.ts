@@ -55,26 +55,50 @@ const getAI = () => {
   return new GoogleGenAI({ apiKey });
 };
 
-// Retry with model fallback
+// Helper function to delay
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Retry with model fallback and exponential backoff
 export const callWithFallback = async <T>(
   fn: (model: string) => Promise<T>,
   startModelIndex: number = 0
 ): Promise<T> => {
   const models = AVAILABLE_MODELS.slice(startModelIndex);
   let lastError: Error | null = null;
+  const maxRetriesPerModel = 2; // Thử lại tối đa 2 lần cho mỗi model
 
   for (const model of models) {
-    try {
-      return await fn(model.id);
-    } catch (error: any) {
-      lastError = error;
-      console.warn(`Model ${model.id} failed, trying next...`, error.message);
-      // Continue to next model
+    for (let attempt = 1; attempt <= maxRetriesPerModel; attempt++) {
+      try {
+        return await fn(model.id);
+      } catch (error: any) {
+        lastError = error;
+        const errorMessage = error.message || '';
+        const isOverloaded = errorMessage.includes('503') || errorMessage.includes('429') || errorMessage.includes('high demand');
+        
+        console.warn(`[Lần ${attempt}] Model ${model.id} failed:`, errorMessage);
+        
+        if (isOverloaded && attempt < maxRetriesPerModel) {
+          // Delay 2s (lần 1), 4s (lần 2)...
+          const waitTime = 2000 * attempt;
+          console.log(`Server đang quá tải, thử lại sau ${waitTime/1000}s...`);
+          await delay(waitTime);
+          continue; // Thử lại model hiện tại
+        }
+        
+        // Thoát vòng lặp retry của model này, chuyển sang model dự phòng tiếp theo
+        break;
+      }
     }
   }
 
-  // All models failed
-  throw lastError || new Error('Tất cả các model đều thất bại');
+  // Nếu đã thử tất cả các model và vẫn lỗi
+  const finalErrorMsg = lastError?.message || '';
+  if (finalErrorMsg.includes('503') || finalErrorMsg.includes('429') || finalErrorMsg.includes('high demand')) {
+    throw new Error('Hệ thống AI của Google đang bị quá tải do nhu cầu cao (Lỗi 503). Hệ thống đã tự động thử lại nhiều lần bằng các model dự phòng nhưng chưa thành công. Vui lòng đợi khoảng 1-2 phút rồi ấn thử lại nhé!');
+  }
+
+  throw lastError || new Error('Tất cả các model đều thất bại. Vui lòng kiểm tra lại kết nối mạng hoặc API key.');
 };
 
 export const fileToBase64 = (file: File): Promise<string> => {
@@ -284,19 +308,36 @@ export const stopTTS = () => {
 // Optional: Gemini TTS for high-quality audio (can be used as enhancement)
 export const generateAudioFromContent = async (text: string): Promise<string> => {
   const ai = getAI();
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash-preview-tts",
-    contents: [{ parts: [{ text }] }],
-    config: {
-      responseModalities: [Modality.AUDIO],
-      speechConfig: {
-        voiceConfig: {
-          prebuiltVoiceConfig: { voiceName: 'Kore' }
-        }
+  let lastError = null;
+  
+  // Tự động retry 2 lần vì API text-to-speech hay bị rate limit/overload
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash-preview-tts",
+        contents: [{ parts: [{ text }] }],
+        config: {
+          responseModalities: [Modality.AUDIO],
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: { voiceName: 'Kore' }
+            }
+          }
+        },
+      });
+      return response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data || "";
+    } catch (e: any) {
+      lastError = e;
+      if ((e.message?.includes('503') || e.message?.includes('429')) && attempt < 2) {
+        await delay(2000);
+        continue;
       }
-    },
-  });
-  return response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data || "";
+      break;
+    }
+  }
+  
+  console.warn("TTS API Error:", lastError);
+  return ""; // Trả về chuỗi rỗng để app không sập, tiếp tục fallback sang Web Speech API
 };
 
 export const generateLessonPlan = async (topicInput?: string, textInput?: string, images: string[] = []): Promise<LessonPlan> => {
@@ -851,12 +892,15 @@ export const analyzeImageAndCreateContent = async (images: string[], mimeType: s
   Source material: Topic: ${topic || "N/A"}, Text: ${text || "N/A"}.
   Character context: ${char.promptContext}.`;
 
-  const response = await ai.models.generateContent({
-    model: getSelectedModel(),
-    contents: { parts: [...imageParts, { text: prompt }] },
-    config: { responseMimeType: "application/json", responseSchema: contentResultSchema }
+  return callWithFallback(async (modelId: string) => {
+    console.log(`🤖 Storyteller - Đang thử với model: ${modelId}`);
+    const response = await ai.models.generateContent({
+      model: modelId,
+      contents: { parts: [...imageParts, { text: prompt }] },
+      config: { responseMimeType: "application/json", responseSchema: contentResultSchema }
+    });
+    return safeJsonParse<ContentResult>(response.text);
   });
-  return safeJsonParse<ContentResult>(response.text);
 };
 
 const safeJsonParse = <T>(text: string): T => {
@@ -888,77 +932,99 @@ const contentResultSchema = {
 
 export const generateMindMap = async (content: any, mode: MindMapMode): Promise<MindMapData> => {
   const ai = getAI();
-  const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
-    contents: `Create a professional Mind Map following Tony Buzan's principles for: ${JSON.stringify(content)}. 
-    Structure: Root node is the main topic. Child nodes are key sub-concepts with emojis. 
-    Output strictly in JSON format matching the schema.`,
-    config: { responseMimeType: "application/json", responseSchema: mindMapSchema }
+  return callWithFallback(async (modelId: string) => {
+    const response = await ai.models.generateContent({
+      model: modelId, // Cho phép fallback thay vì hardcode gemini-3-pro-preview
+      contents: `Create a professional Mind Map following Tony Buzan's principles for: ${JSON.stringify(content)}. 
+      Structure: Root node is the main topic. Child nodes are key sub-concepts with emojis. 
+      Output strictly in JSON format matching the schema.`,
+      config: { responseMimeType: "application/json", responseSchema: mindMapSchema }
+    });
+    return safeJsonParse<MindMapData>(response.text);
   });
-  return safeJsonParse<MindMapData>(response.text);
 };
 
 export const evaluateSpeech = async (base64Audio: string): Promise<SpeechEvaluation> => {
   const ai = getAI();
-  const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
-    contents: { parts: [{ inlineData: { data: base64Audio, mimeType: 'audio/wav' } }, { text: "Evaluate the student's speaking performance on a scale of 0-10. Provide encouraging feedback in Vietnamese." }] },
-    config: { responseMimeType: "application/json", responseSchema: speechEvaluationSchema }
+  return callWithFallback(async (modelId: string) => {
+    const response = await ai.models.generateContent({
+      model: modelId,
+      contents: { parts: [{ inlineData: { data: base64Audio, mimeType: 'audio/wav' } }, { text: "Evaluate the student's speaking performance on a scale of 0-10. Provide encouraging feedback in Vietnamese." }] },
+      config: { responseMimeType: "application/json", responseSchema: speechEvaluationSchema }
+    });
+    return safeJsonParse<SpeechEvaluation>(response.text);
   });
-  return safeJsonParse<SpeechEvaluation>(response.text);
 };
 
 export const generateStoryImage = async (prompt: string, style: string, ratio: ImageRatio): Promise<string> => {
   const ai = getAI();
-  const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash-image',
-    contents: { parts: [{ text: `A high-quality educational illustration for kids: ${prompt}. Artistic Style: ${style}. High resolution, 8k, vibrant colors.` }] },
-    config: { imageConfig: { aspectRatio: ratio } }
-  });
-  for (const part of response.candidates[0].content.parts) { if (part.inlineData) return `data:image/png;base64,${part.inlineData.data}`; }
-  throw new Error("Image generation failed");
+  let lastError = null;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash-image', // Model ảnh không có fallback text model được
+        contents: { parts: [{ text: `A high-quality educational illustration for kids: ${prompt}. Artistic Style: ${style}. High resolution, 8k, vibrant colors.` }] },
+        config: { imageConfig: { aspectRatio: ratio } }
+      });
+      for (const part of response.candidates[0].content.parts) { if (part.inlineData) return `data:image/png;base64,${part.inlineData.data}`; }
+    } catch (e: any) {
+      lastError = e;
+      if (e.message?.includes('503') || e.message?.includes('429')) {
+        await delay(2000 * attempt);
+        continue;
+      }
+      break;
+    }
+  }
+  throw new Error("Hệ thống tạo ảnh đang quá tải. Vui lòng thử lại sau.");
 };
 
 export const correctWriting = async (userText: string, creativePrompt: string): Promise<any> => {
   const ai = getAI();
-  const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
-    contents: `Evaluate and correct this student writing: "${userText}". The topic was: "${creativePrompt}". Provide a score (0-10), feedback, fixed text, and detailed error list.`,
-    config: { responseMimeType: "application/json", responseSchema: writingCorrectionSchema }
+  return callWithFallback(async (modelId: string) => {
+    const response = await ai.models.generateContent({
+      model: modelId,
+      contents: `Evaluate and correct this student writing: "${userText}". The topic was: "${creativePrompt}". Provide a score (0-10), feedback, fixed text, and detailed error list.`,
+      config: { responseMimeType: "application/json", responseSchema: writingCorrectionSchema }
+    });
+    return safeJsonParse<any>(response.text);
   });
-  return safeJsonParse<any>(response.text);
 };
 
 export const generatePresentation = async (data: MindMapData): Promise<PresentationScript> => {
   const ai = getAI();
-  const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
-    contents: `Create a professional English presentation script for a student based on this Mind Map data: ${JSON.stringify(data)}. 
-    Include a warm introduction, body sections for each node, and a polite conclusion. 
-    Provide both English script and Vietnamese translation.`,
-    config: { responseMimeType: "application/json", responseSchema: presentationSchema }
+  return callWithFallback(async (modelId: string) => {
+    const response = await ai.models.generateContent({
+      model: modelId,
+      contents: `Create a professional English presentation script for a student based on this Mind Map data: ${JSON.stringify(data)}. 
+      Include a warm introduction, body sections for each node, and a polite conclusion. 
+      Provide both English script and Vietnamese translation.`,
+      config: { responseMimeType: "application/json", responseSchema: presentationSchema }
+    });
+    return safeJsonParse<PresentationScript>(response.text);
   });
-  return safeJsonParse<PresentationScript>(response.text);
 };
 
 export const generateMindMapPrompt = async (content: any, mode: MindMapMode): Promise<string> => {
   const ai = getAI();
-  const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
-    contents: `TASK: Generate a single, highly detailed English prompt for drawing a professional Tony Buzan Mind Map using AI art tools (like Midjourney or DALL-E). 
-    CONTENT SOURCE: ${JSON.stringify(content)}. 
-    
-    PROMPT SPECIFICATIONS:
-    - Style: 3D Organic Tony Buzan Mind Map, Pixar-style animation render.
-    - Central Theme: A clear 3D icon representing the lesson topic at the center.
-    - Branches: Curvy, organic, thick-to-thin colorful branches spreading outwards.
-    - Elements: Floating keywords in English, cute 3D emojis/icons next to branches.
-    - Environment: Clean bright studio background, 8k resolution, cinematic lighting, vibrant pedagogical colors.
-    - Exclude: No text other than the keywords. 
-    
-    JUST PROVIDE THE RAW PROMPT STRING.`
+  return callWithFallback(async (modelId: string) => {
+    const response = await ai.models.generateContent({
+      model: modelId,
+      contents: `TASK: Generate a single, highly detailed English prompt for drawing a professional Tony Buzan Mind Map using AI art tools (like Midjourney or DALL-E). 
+      CONTENT SOURCE: ${JSON.stringify(content)}. 
+      
+      PROMPT SPECIFICATIONS:
+      - Style: 3D Organic Tony Buzan Mind Map, Pixar-style animation render.
+      - Central Theme: A clear 3D icon representing the lesson topic at the center.
+      - Branches: Curvy, organic, thick-to-thin colorful branches spreading outwards.
+      - Elements: Floating keywords in English, cute 3D emojis/icons next to branches.
+      - Environment: Clean bright studio background, 8k resolution, cinematic lighting, vibrant pedagogical colors.
+      - Exclude: No text other than the keywords. 
+      
+      JUST PROVIDE THE RAW PROMPT STRING.`
+    });
+    return response.text;
   });
-  return response.text;
 };
 
 const mindMapSchema = { type: Type.OBJECT, properties: { center: { type: Type.OBJECT, properties: { title_en: { type: Type.STRING }, title_vi: { type: Type.STRING }, emoji: { type: Type.STRING } } }, nodes: { type: Type.ARRAY, items: { type: Type.OBJECT, properties: { text_en: { type: Type.STRING }, text_vi: { type: Type.STRING }, emoji: { type: Type.STRING } } } } } };
