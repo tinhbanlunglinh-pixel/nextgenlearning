@@ -82,11 +82,11 @@ function App() {
     // Check API key first
     if (!hasApiKey()) {
       setShowSettings(true);
-      setError("Vui lòng nhập API Key trước khi s�?dụng!");
+      setError("Vui lòng nhập API Key trước khi sử dụng!");
       return;
     }
 
-    if (plannerMode === 'topic' && !topic.trim()) { setError("Hãy nhập ch�?đ�?bài học con nhé!"); return; }
+    if (plannerMode === 'topic' && !topic.trim()) { setError("Hãy nhập chủ đề bài học con nhé!"); return; }
     if (plannerMode === 'text' && !lessonText.trim()) { setError("Hãy dán nội dung bài học vào đây!"); return; }
     if (plannerMode === 'image' && selectedFiles.length === 0) { setError("Hãy chọn ít nhất một tấm ảnh tài liệu!"); return; }
 
@@ -109,14 +109,14 @@ function App() {
       setLesson(data);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: any) {
-      // Hiển th�?nguyên văn lỗi t�?API như yêu cầu
+      // Hiển thị nguyên văn lỗi từ?API như yêu cầu
       const rawError = err.message || "Lỗi không xác định";
       if (rawError.includes("429") || rawError.includes("RESOURCE_EXHAUSTED")) {
-        setError("LỖI 429: Hết hạn mức s�?dụng (Quota Exhausted). Cô hãy đổi API Key khác nhé!");
+        setError("LỖI 429: Hết hạn mức sử dụng (Quota Exhausted). Cô hãy đổi API Key khác nhé!");
       } else if (rawError.includes("401") || rawError.includes("API_KEY_INVALID")) {
-        setError("LỖI 401: Mã API Key không hợp l�? Cô hãy kiểm tra lại nhé!");
+        setError("LỖI 401: Mã API Key không hợp lệ!? Cô hãy kiểm tra lại nhé!");
       } else {
-        setError(`LỖI H�?THỐNG: ${rawError}`);
+        setError(`LỖI HỆ THỐNG: ${rawError}`);
       }
     } finally {
       setLoading(false);
@@ -141,8 +141,8 @@ function App() {
     const s = score || 0;
     if (s >= 9) return { text: "XUẤT SẮC", emoji: "🏆", level: "EXCELLENT", praise: "Con là một ngôi sao sáng nhất lớp NEXTGEN ENGLISH!" };
     if (s >= 7) return { text: "KHÁ GIỎI", emoji: "🌟", level: "GREAT JOB", praise: "Con làm bài rất tuyệt vời, tiếp tục phát huy nhé!" };
-    if (s >= 5) return { text: "C�?GẮNG", emoji: "👍", level: "GOOD EFFORT", praise: "Con đã n�?lực rất nhiều, NEXTGEN ENGLISH t�?hào v�?con!" };
-    return { text: "CẦN N�?LỰC", emoji: "💪", level: "KEEP IT UP", praise: "Đừng nản lòng con nhé, bài sau mình làm tốt hơn nào!" };
+    if (s >= 5) return { text: "CỐ GẮNG", emoji: "👍", level: "GOOD EFFORT", praise: "Con đã nỗ lực rất nhiều, NEXTGEN ENGLISH tự hào về con!" };
+    return { text: "CẦN NỖ LỰC", emoji: "💪", level: "KEEP IT UP", praise: "Đừng nản lòng con nhé, bài sau mình làm tốt hơn nào!" };
   }
 
   const evaluation = getEvaluation(totalScore);
@@ -166,7 +166,7 @@ function App() {
               className="flex items-center gap-1 sm:gap-2 bg-white/10 hover:bg-white/20 px-2 sm:px-3 py-1 sm:py-2 rounded-lg transition-all"
             >
               <span className="text-base sm:text-lg">📊</span>
-              <span className="text-white text-xs sm:text-sm font-bold hidden sm:block">Lịch s�</span>
+              <span className="text-white text-xs sm:text-sm font-bold hidden sm:block">Lịch sử</span>
             </button>
 
             {/* Settings Button */}
@@ -294,7 +294,7 @@ function App() {
                       }}
                       className="flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-3 py-2 sm:px-5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm shadow-lg transition-all active:scale-95"
                     >
-                      <span className="text-base sm:text-lg">�</span>
+                      <span className="text-base sm:text-lg">🔄</span>
                       <span className="hidden sm:inline">Tạo bài học mới</span>
                       <span className="sm:hidden">Bài mới</span>
                     </button>
@@ -343,7 +343,7 @@ function App() {
                       <span className="text-xl sm:text-2xl font-bold text-slate-300">/10</span>
                     </div>
                     <div className="text-sm sm:text-base font-semibold text-brand-500 bg-brand-50 px-4 py-1 rounded-full">
-                      S�?câu đúng: <span className="text-brand-700 font-bold">{totalCorrectCount}/{totalQuestions}</span>
+                      Số câu đúng: <span className="text-brand-700 font-bold">{totalCorrectCount}/{totalQuestions}</span>
                     </div>
                     <div className={`px-6 py-2 sm:px-8 sm:py-3 rounded-full font-bold text-base sm:text-xl shadow-lg ${totalScore >= 5 ? 'bg-brand-500 text-white' : 'bg-orange-500 text-white'}`}>
                       {evaluation.emoji} {evaluation.text}

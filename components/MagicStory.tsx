@@ -30,7 +30,7 @@ const CHARACTERS: CharacterProfile[] = [
   {
     id: 'spiderman',
     name: 'Spider-Man',
-    emoji: '🕸�?,
+    emoji: '🕸️',
     promptContext: 'Spider-Man in his classic red and blue suit',
     stylePrompt: 'Marvel animated series style, superhero comic look, heroic poses, web effects, vibrant urban colors',
     colorClass: 'bg-red-700'
@@ -38,7 +38,7 @@ const CHARACTERS: CharacterProfile[] = [
   {
     id: 'pikachu',
     name: 'Pikachu',
-    emoji: '�?,
+    emoji: '⚡',
     promptContext: 'Pikachu, the yellow electric pokemon with red cheeks',
     stylePrompt: 'Pokemon anime style, cute cel-shaded animation, lightning sparks, bright yellow fur',
     colorClass: 'bg-yellow-400'
@@ -46,7 +46,7 @@ const CHARACTERS: CharacterProfile[] = [
   {
     id: 'harry_potter',
     name: 'Harry Potter',
-    emoji: '⚡�?,
+    emoji: '🧙',
     promptContext: 'Young Harry Potter with glasses and a lightning scar',
     stylePrompt: 'Fantasy illustration style, magical glowing atmosphere, holding a wooden wand, Hogwarts robe',
     colorClass: 'bg-red-900'
@@ -204,8 +204,8 @@ export const MagicStory: React.FC = () => {
         {!state.contentResult && !state.isLoading && !isConfiguring && (
           <div className="space-y-12 animate-fade-in max-w-5xl mx-auto">
             <div className="text-center mb-10">
-                <h2 className="text-4xl font-black text-slate-800 font-display mb-3">Tạo câu chuyện phép thuật �?/h2>
-                <p className="text-slate-500 text-lg">Chọn nhân vật yêu thích và k�?cho NEXTGEN ENGLISH nghe cuộc phiêu lưu!</p>
+                <h2 className="text-4xl font-black text-slate-800 font-display mb-3">Tạo câu chuyện phép thuật</h2>
+                <p className="text-slate-500 text-lg">Chọn nhân vật yêu thích và để cho NEXTGEN ENGLISH nghe cuộc phiêu lưu!</p>
             </div>
 
             <section>
@@ -245,7 +245,7 @@ export const MagicStory: React.FC = () => {
                     onClick={() => setInputMode('topic')}
                     className={`flex-1 py-3 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 ${inputMode === 'topic' ? 'bg-brand-400 text-white shadow-md' : 'text-slate-400 hover:bg-slate-50'}`}
                   >
-                    <span>💡</span> <span>Ch�?đ�</span>
+                    <span>💡</span> <span>Chủ đề</span>
                   </button>
                   <button 
                     onClick={() => setInputMode('text')}
@@ -266,10 +266,10 @@ export const MagicStory: React.FC = () => {
                {inputMode === 'topic' && (
                   <div className="bg-white p-8 rounded-[2rem] shadow-xl border-4 border-brand-100 animate-fade-in">
                     <div className="mb-6">
-                        <label className="block text-sm font-black text-brand-600 mb-2 uppercase tracking-wide">Nhập ch�?đ�?bài học</label>
+                        <label className="block text-sm font-black text-brand-600 mb-2 uppercase tracking-wide">Nhập chủ đề bài học</label>
                         <input 
                             type="text"
-                            placeholder="Ví d�? Birthday party, At the zoo, Colors..."
+                            placeholder="Ví dụ Birthday party, At the zoo, Colors..."
                             value={inputTopic}
                             onChange={(e) => setInputTopic(e.target.value)}
                             className="w-full p-4 text-xl rounded-xl border-2 border-slate-200 focus:border-brand-400 outline-none font-bold text-slate-700"
@@ -280,7 +280,7 @@ export const MagicStory: React.FC = () => {
                       disabled={!inputTopic.trim()}
                       className="w-full py-4 bg-brand-500 text-white font-black text-xl rounded-xl shadow-lg hover:bg-brand-600 disabled:opacity-50 transform active:scale-95 transition-all"
                     >
-                      Tiếp tục �?                    </button>
+                      Tiếp tục →                    </button>
                   </div>
                )}
 
@@ -289,7 +289,7 @@ export const MagicStory: React.FC = () => {
                     <div className="mb-6">
                         <label className="block text-sm font-black text-brand-600 mb-2 uppercase tracking-wide">Nhập nội dung/gợi ý</label>
                         <textarea 
-                            placeholder="Dán nội dung bài học hoặc mô t�?câu chuyện con muốn k�?.."
+                            placeholder="Dán nội dung bài học hoặc mô tả câu chuyện con muốn kể.."
                             rows={4}
                             value={inputText}
                             onChange={(e) => setInputText(e.target.value)}
@@ -301,7 +301,7 @@ export const MagicStory: React.FC = () => {
                       disabled={!inputText.trim()}
                       className="w-full py-4 bg-brand-500 text-white font-black text-xl rounded-xl shadow-lg hover:bg-brand-600 disabled:opacity-50 transform active:scale-95 transition-all"
                     >
-                      Tiếp tục �?                    </button>
+                      Tiếp tục →                    </button>
                   </div>
                )}
             </section>
@@ -340,7 +340,7 @@ export const MagicStory: React.FC = () => {
                     <div className="space-y-3">
                         <label className="block text-sm font-black text-slate-400 uppercase tracking-wide">Yêu cầu đặc biệt (Tùy chọn)</label>
                         <textarea 
-                            placeholder="Ví d�? K�?v�?tình bạn, làm câu chuyện hài hước..."
+                            placeholder="Ví dụ Kể vềtình bạn, làm câu chuyện hài hước..."
                             className="w-full p-4 border-2 border-slate-200 rounded-xl focus:border-brand-400 outline-none transition-all resize-none text-slate-700 font-medium text-sm"
                             rows={3}
                             value={state.customPrompt}
@@ -361,7 +361,7 @@ export const MagicStory: React.FC = () => {
                     onClick={handleStartMagic}
                     className="flex-1 py-4 bg-brand-500 hover:bg-brand-600 text-white font-black text-xl rounded-xl shadow-lg shadow-brand-200 transform hover:-translate-y-1 transition-all"
                   >
-                   �?Bắt đầu k�?chuyện
+                   ✨ Bắt đầu kể chuyện
                  </button>
                </div>
             </div>
@@ -382,7 +382,7 @@ export const MagicStory: React.FC = () => {
                     {state.loadingStep}
                 </h2>
                 <p className="text-slate-500 text-lg font-bold">
-                    NEXTGEN ENGLISH AI đang chuẩn b�?câu chuyện cho con...
+                    NEXTGEN ENGLISH AI đang chuẩn bị câu chuyện cho con...
                 </p>
             </div>
           </div>

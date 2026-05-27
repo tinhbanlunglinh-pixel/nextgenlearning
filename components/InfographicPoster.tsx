@@ -54,13 +54,13 @@ export const InfographicPoster: React.FC<InfographicPosterProps> = ({ lesson }) 
       link.click();
     } catch (e) { 
       console.error(e); 
-      alert("Lỗi xuất ảnh, hãy th�?lại!");
+      alert("Lỗi xuất ảnh, hãy thử lại!");
     } finally {
       setDownloadingPage(null);
     }
   };
 
-  // Chia t�?vựng theo yêu cầu: Trang 1 tối đa 15 t�?  const MAX_P1_WORDS = 15;
+  // Chia từ vựng theo yêu cầu: Trang 1 tối đa 15 t→  const MAX_P1_WORDS = 15;
   const vocabP1 = lesson.vocabulary.slice(0, MAX_P1_WORDS);
   const vocabP2 = lesson.vocabulary.slice(MAX_P1_WORDS);
 
@@ -84,7 +84,7 @@ export const InfographicPoster: React.FC<InfographicPosterProps> = ({ lesson }) 
                 disabled={isGenerating}
                 className="bg-[#9333ea] text-white px-10 py-5 rounded-2xl font-black text-xl shadow-lg hover:bg-[#7e22ce] transition-all flex items-center justify-center gap-3 active:scale-95"
               >
-                {isGenerating ? <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div> : <>�?Đổi Hình 3D</>}
+                {isGenerating ? <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div> : <>→Đổi Hình 3D</>}
               </button>
             </div>
           </div>
@@ -100,7 +100,7 @@ export const InfographicPoster: React.FC<InfographicPosterProps> = ({ lesson }) 
                     {cartoonImage ? <img src={cartoonImage} alt="Summary" crossOrigin="anonymous" className="w-full h-full object-cover rounded-[1.5rem]" /> : <div className="text-6xl">🎨</div>}
                   </div>
                   <div className="flex-1">
-                    <div className="bg-highlight-400 text-brand-900 px-6 py-1 rounded-full text-sm font-black uppercase tracking-[0.4em] mb-4 w-fit shadow-md">TRANG 1: KIẾN THỨC �?/div>
+                    <div className="bg-highlight-400 text-brand-900 px-6 py-1 rounded-full text-sm font-black uppercase tracking-[0.4em] mb-4 w-fit shadow-md">TRANG 1: KIẾN THỨC →/div>
                     <h1 className="text-4xl font-black text-white leading-tight uppercase tracking-tighter line-clamp-2">{lesson.topic}</h1>
                     <p className="text-brand-100 text-lg font-bold opacity-80 mt-2">English NEXTGEN ENGLISH - Learn English, Lead the way</p>
                   </div>
@@ -124,7 +124,7 @@ export const InfographicPoster: React.FC<InfographicPosterProps> = ({ lesson }) 
               <div className="mt-8 w-full text-center text-xs font-black text-brand-200 uppercase tracking-[0.5em]">Learn English, Lead the way - NEXTGEN ENGLISH</div>
           </div>
           <button onClick={() => downloadPosterPage('poster-p1', 1)} disabled={downloadingPage === 1} className="bg-brand-600 text-white px-12 py-5 rounded-full font-black text-2xl shadow-xl hover:bg-brand-500 active:translate-y-1 transition-all uppercase tracking-tighter">
-            {downloadingPage === 1 ? 'ĐANG X�?LÝ...' : '📥 TẢI SUMMARY TRANG 1'}
+            {downloadingPage === 1 ? 'ĐANG X→LÝ...' : '📥 TẢI SUMMARY TRANG 1'}
           </button>
       </div>
 
@@ -132,7 +132,7 @@ export const InfographicPoster: React.FC<InfographicPosterProps> = ({ lesson }) 
       <div className="flex flex-col items-center gap-8 w-full mt-12">
           <div id="poster-p2" className="w-[850px] bg-white p-14 relative overflow-hidden animate-fade-in font-sans border-[15px] border-brand-50 shadow-2xl ring-4 ring-white aspect-[1/1.414] flex flex-col">
               <div className="bg-brand-700 rounded-[2.5rem] p-10 relative overflow-hidden mb-12">
-                  <div className="bg-highlight-400 text-brand-900 px-6 py-1 rounded-full text-sm font-black uppercase tracking-[0.4em] mb-4 w-fit shadow-md">TRANG 2: THỰC HÀNH & CHI TIẾT �?/div>
+                  <div className="bg-highlight-400 text-brand-900 px-6 py-1 rounded-full text-sm font-black uppercase tracking-[0.4em] mb-4 w-fit shadow-md">TRANG 2: THỰC HÀNH & CHI TIẾT →/div>
                   <h1 className="text-4xl font-black text-white leading-tight uppercase tracking-tighter line-clamp-1">{lesson.topic}</h1>
               </div>
 
@@ -169,14 +169,14 @@ export const InfographicPoster: React.FC<InfographicPosterProps> = ({ lesson }) 
                   {lesson.grammar && (
                     <div className="p-6 bg-highlight-100 rounded-[2rem] border-[4px] border-white shadow-md relative overflow-hidden ring-2 ring-highlight-200">
                         <div className="absolute top-0 right-0 p-3 text-3xl opacity-10">💡</div>
-                        <h3 className="text-highlight-700 font-black text-xl mb-1 uppercase tracking-tighter">NG�?PHÁP QUAN TRỌNG</h3>
+                        <h3 className="text-highlight-700 font-black text-xl mb-1 uppercase tracking-tighter">NG→PHÁP QUAN TRỌNG</h3>
                         <p className="text-slate-800 font-black text-lg italic leading-relaxed line-clamp-4">{lesson.grammar.explanation}</p>
                     </div>
                   )}
 
                   {lesson.teacherTips && (
                     <div className="p-6 bg-brand-900 text-brand-50 rounded-[2rem] shadow-xl border-l-[15px] border-brand-500 mt-auto relative overflow-hidden">
-                         <div className="absolute top-0 right-0 p-4 text-5xl opacity-10">👩‍�?/div>
+                         <div className="absolute top-0 right-0 p-4 text-5xl opacity-10">👩‍→/div>
                          <h4 className="font-black text-highlight-400 text-xs tracking-[0.3em] mb-1 uppercase">NEXTGEN ENGLISH'S TIPS</h4>
                          <p className="text-base font-bold italic leading-relaxed opacity-90 line-clamp-3">{lesson.teacherTips}</p>
                     </div>
@@ -185,7 +185,7 @@ export const InfographicPoster: React.FC<InfographicPosterProps> = ({ lesson }) 
               <div className="mt-8 w-full text-center text-xs font-black text-brand-300 uppercase tracking-[0.5em]">Learn English, Lead the way - NEXTGEN ENGLISH</div>
           </div>
           <button onClick={() => downloadPosterPage('poster-p2', 2)} disabled={downloadingPage === 2} className="bg-indigo-600 text-white px-12 py-5 rounded-full font-black text-2xl shadow-xl hover:bg-indigo-500 active:translate-y-1 transition-all uppercase tracking-tighter">
-            {downloadingPage === 2 ? 'ĐANG X�?LÝ...' : '📥 TẢI SUMMARY TRANG 2'}
+            {downloadingPage === 2 ? 'ĐANG X→LÝ...' : '📥 TẢI SUMMARY TRANG 2'}
           </button>
       </div>
     </div>

@@ -244,7 +244,7 @@ export const AICallModal: React.FC<AICallModalProps> = ({ isOpen, onClose, story
                 )}
                 <div className={`relative z-10 w-40 h-40 rounded-full flex items-center justify-center shadow-2xl border-8 border-white transition-all duration-500 transform ${isSpeaking ? 'bg-gradient-to-tr from-green-400 to-emerald-500 scale-110 shadow-emerald-200/50' : 'bg-brand-500'} ${['error', 'permission-denied', 'device-not-found'].includes(status) ? 'bg-red-500' : ''}`}>
                     {status === 'connecting' && <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>}
-                    {status === 'connected' && <span className="text-7xl">{isSpeaking ? '👩‍�? : '👂'}</span>}
+                    {status === 'connected' && <span className="text-7xl">{isSpeaking ? '👩‍→ : '👂'}</span>}
                     {['error', 'permission-denied', 'device-not-found'].includes(status) && <span className="text-7xl">⚠️</span>}
                 </div>
             </div>
@@ -254,7 +254,7 @@ export const AICallModal: React.FC<AICallModalProps> = ({ isOpen, onClose, story
                 {status === 'connected' && <p className={`font-black text-2xl tracking-tight transition-colors ${isSpeaking ? 'text-brand-700' : 'text-emerald-600'}`}>{isSpeaking ? "NEXTGEN ENGLISH is speaking..." : "Listening to you..."}</p>}
                 {status === 'permission-denied' && <p className="text-red-500 font-black">Lỗi: Bé hãy cho phép truy cập Micro nhé!</p>}
                 {status === 'device-not-found' && <p className="text-red-500 font-black">Lỗi: Không tìm thấy Micro trên máy!</p>}
-                {status === 'error' && <p className="text-red-500 font-black">Lỗi kết nối. Bé hãy th�?lại nhé!</p>}
+                {status === 'error' && <p className="text-red-500 font-black">Lỗi kết nối. Bé hãy thử lại nhé!</p>}
             </div>
 
             <button onClick={onClose} className="w-full bg-red-50 text-red-500 py-5 rounded-3xl font-black text-xl hover:bg-red-100 transition-all border-b-4 border-red-200 active:border-b-0 active:translate-y-1 shadow-sm uppercase">End Call</button>

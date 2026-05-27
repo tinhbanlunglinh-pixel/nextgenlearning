@@ -23,7 +23,7 @@ export const MindMapTab: React.FC = () => {
       return;
     }
     if (mode !== MindMapMode.IMAGE && !inputContent.trim()) {
-      setError("Vui lòng nhập nội dung con muốn tạo sơ đ�?nhé!");
+      setError("Vui lòng nhập nội dung con muốn tạo sơ đ→nhé!");
       return;
     }
 
@@ -47,7 +47,7 @@ export const MindMapTab: React.FC = () => {
         window.scrollTo({ top: document.getElementById('mindmap-result')?.offsetTop || 0, behavior: 'smooth' });
       }, 500);
     } catch (err: any) {
-      setError(err.message || "Bé ơi, có lỗi khi tạo sơ đ�?");
+      setError(err.message || "Bé ơi, có lỗi khi tạo sơ đ→");
     } finally {
       setIsLoading(false);
     }
@@ -90,7 +90,7 @@ export const MindMapTab: React.FC = () => {
     <div className="w-full pb-20">
       <div className="text-center mb-16 space-y-4">
         <h2 className="text-5xl md:text-7xl font-black text-indigo-600 font-display mb-3 tracking-tighter">Mindmap Maker 🧠</h2>
-        <p className="text-2xl text-slate-500 max-w-2xl mx-auto font-medium italic">"Biến mọi nội dung bài học thành sơ đ�?tư duy 3D tuyệt đẹp và luyện thuyết trình!"</p>
+        <p className="text-2xl text-slate-500 max-w-2xl mx-auto font-medium italic">"Biến mọi nội dung bài học thành sơ độ tư duy 3D tuyệt đẹp và luyện thuyết trình!"</p>
       </div>
 
       <div className="max-w-5xl mx-auto space-y-12">
@@ -98,7 +98,7 @@ export const MindMapTab: React.FC = () => {
           <div className="absolute top-0 right-0 p-8 text-8xl opacity-5">🧠</div>
           <div className="flex bg-slate-100 p-2 rounded-[2rem] mb-10 gap-2 shadow-inner">
             {[
-              { id: MindMapMode.TOPIC, label: 'Ch�?đ�?, icon: '💡' },
+              { id: MindMapMode.TOPIC, label: 'Chủ đề , icon: '💡' },
               { id: MindMapMode.TEXT, label: 'Văn bản', icon: '📝' },
               { id: MindMapMode.IMAGE, label: 'Hình ảnh', icon: '📸' }
             ].map((m) => (
@@ -117,9 +117,9 @@ export const MindMapTab: React.FC = () => {
                <div className="flex flex-col gap-6">
                  <div className="border-4 border-dashed border-indigo-200 bg-indigo-50/20 rounded-[2.5rem] p-12 text-center relative group cursor-pointer hover:bg-indigo-50 transition-colors">
                     <input type="file" accept="image/*" multiple onChange={handleFileChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" />
-                    <div className="text-indigo-300 text-7xl mb-4 group-hover:scale-110 transition-transform">🖼�?/div>
-                    <p className="text-indigo-400 font-black text-2xl uppercase tracking-tighter">Nhấn đ�?tải ảnh bài học lên</p>
-                    <p className="text-slate-400 font-bold mt-2">(Tải tối đa 5 tấm ảnh sách hoặc v�?bài tập)</p>
+                    <div className="text-indigo-300 text-7xl mb-4 group-hover:scale-110 transition-transform">🖼→/div>
+                    <p className="text-indigo-400 font-black text-2xl uppercase tracking-tighter">Nhấn độ tải ảnh bài học lên</p>
+                    <p className="text-slate-400 font-bold mt-2">(Tải tối đa 5 tấm ảnh sách hoặc vềbài tập)</p>
                  </div>
                  <div className="flex gap-4 overflow-x-auto pb-4 justify-center">
                     {imagePreviews.map((src, i) => (
@@ -131,7 +131,7 @@ export const MindMapTab: React.FC = () => {
                <textarea 
                  value={inputContent} 
                  onChange={e => setInputContent(e.target.value)} 
-                 placeholder={mode === MindMapMode.TOPIC ? "Nhập ch�?đ�?ngắn gọn (VD: Animals, My school...)" : "Dán toàn b�?văn bản bài học hoặc đoạn văn của con vào đây..."} 
+                 placeholder={mode === MindMapMode.TOPIC ? "Nhập chủ đề ngắn gọn (VD: Animals, My school...)" : "Dán toàn b→văn bản bài học hoặc đoạn văn của con vào đây..."} 
                  className="w-full p-8 text-2xl rounded-[2.5rem] border-4 border-slate-50 bg-slate-50/50 focus:bg-white focus:border-indigo-400 outline-none transition-all font-bold text-slate-700 min-h-[250px] resize-none" 
                />
             )}
@@ -141,7 +141,7 @@ export const MindMapTab: React.FC = () => {
               disabled={isLoading} 
               className="w-full py-8 bg-indigo-500 border-b-[15px] border-indigo-700 text-white rounded-[3rem] font-black text-4xl shadow-2xl hover:bg-indigo-400 transform active:scale-[0.98] active:translate-y-2 active:border-b-0 transition-all uppercase tracking-tighter"
             >
-               {isLoading ? '🤖 ĐANG PHÂN TÍCH...' : '🚀 TẠO SƠ Đ�?NGAY'}
+               {isLoading ? '🤖 ĐANG PHÂN TÍCH...' : '🚀 TẠO SƠ Đ→NGAY'}
             </button>
             {error && <div className="p-6 bg-red-50 border-2 border-red-200 rounded-2xl text-red-600 text-center font-black text-xl animate-bounce">⚠️ {error}</div>}
           </div>
@@ -153,12 +153,12 @@ export const MindMapTab: React.FC = () => {
              
              <div className="w-full max-w-5xl pt-20 border-t-8 border-dashed border-indigo-100 flex flex-col items-center gap-12">
                 <div className="text-center space-y-6 w-full max-w-2xl">
-                   <div className="inline-block bg-emerald-100 text-emerald-700 px-6 py-2 rounded-full text-sm font-black uppercase tracking-widest shadow-sm">BƯỚC TIẾP THEO �?/div>
+                   <div className="inline-block bg-emerald-100 text-emerald-700 px-6 py-2 rounded-full text-sm font-black uppercase tracking-widest shadow-sm">BƯỚC TIẾP THEO →/div>
                    <h3 className="text-4xl md:text-5xl font-black text-emerald-800 font-display tracking-tight">🎤 LUYỆN THUYẾT TRÌNH</h3>
-                   <p className="text-xl text-slate-500 font-bold italic">"NEXTGEN ENGLISH AI s�?soạn bài mẫu và chấm điểm bài nói của con!"</p>
+                   <p className="text-xl text-slate-500 font-bold italic">"NEXTGEN ENGLISH AI s→soạn bài mẫu và chấm điểm bài nói của con!"</p>
                    <input 
                      type="text" 
-                     placeholder="Nhập tên của con đ�?in giấy khen nhé..." 
+                     placeholder="Nhập tên của con đ→in giấy khen nhé..." 
                      value={studentName} 
                      onChange={e => setStudentName(e.target.value)} 
                      className="p-6 w-full rounded-[2.5rem] border-8 border-emerald-50 font-black text-3xl text-center outline-none bg-emerald-50/20 focus:bg-white focus:border-emerald-400 transition-all" 

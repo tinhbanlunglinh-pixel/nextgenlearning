@@ -47,7 +47,7 @@ export const CreativeMindMap: React.FC = () => {
       setHistory(prev => [result, ...prev]);
     } catch (e) {
       console.error(e);
-      setError("Đã có lỗi xảy ra. Vui lòng th�?lại.");
+      setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
     } finally {
       setIsLoading(false);
     }
@@ -63,7 +63,7 @@ export const CreativeMindMap: React.FC = () => {
       link.click();
     } catch (err) {
       console.error(err);
-      alert("Không th�?lưu ảnh. Vui lòng th�?lại.");
+      alert("Không th→lưu ảnh. Vui lòng thử lại.");
     }
   };
 
@@ -90,9 +90,9 @@ export const CreativeMindMap: React.FC = () => {
           <div className="bg-white rounded-[2.5rem] shadow-2xl border-4 border-slate-50 p-8 mb-12">
               <div className="flex bg-slate-100 p-2 rounded-2xl mb-8 gap-2">
                 {[
-                  { id: MindMapMode.TOPIC, label: 'T�?Ch�?Đ�?, icon: '💡' },
-                  { id: MindMapMode.TEXT, label: 'T�?Văn Bản', icon: '📝' },
-                  { id: MindMapMode.IMAGE, label: 'T�?Hình Ảnh', icon: '📸' },
+                  { id: MindMapMode.TOPIC, label: 'T→Ch→Đ→, icon: '💡' },
+                  { id: MindMapMode.TEXT, label: 'T→Văn Bản', icon: '📝' },
+                  { id: MindMapMode.IMAGE, label: 'T→Hình Ảnh', icon: '📸' },
                 ].map(m => (
                   <button key={m.id} onClick={() => setMode(m.id)} className={`flex-1 py-3 rounded-xl font-black text-sm flex items-center justify-center gap-2 transition-all ${mode === m.id ? 'bg-brand-500 text-white shadow-lg' : 'text-slate-500 hover:bg-white'}`}>
                     <span>{m.icon}</span> {m.label}
@@ -102,16 +102,16 @@ export const CreativeMindMap: React.FC = () => {
 
               <div className="space-y-6">
                 {mode !== MindMapMode.IMAGE ? (
-                  <textarea value={inputText} onChange={e => setInputText(e.target.value)} placeholder={mode === MindMapMode.TOPIC ? "Nhập ch�?đ�?(VD: Animals, My Family...)" : "Dán văn bản bài học vào đây..."} className="w-full p-6 text-xl rounded-2xl border-2 border-slate-200 focus:border-brand-400 outline-none font-bold text-slate-700 h-32" />
+                  <textarea value={inputText} onChange={e => setInputText(e.target.value)} placeholder={mode === MindMapMode.TOPIC ? "Nhập chủ đề (VD: Animals, My Family...)" : "Dán văn bản bài học vào đây..."} className="w-full p-6 text-xl rounded-2xl border-2 border-slate-200 focus:border-brand-400 outline-none font-bold text-slate-700 h-32" />
                 ) : (
                   <div className="border-4 border-dashed border-brand-100 p-10 rounded-2xl text-center bg-brand-50/20 relative cursor-pointer">
                     <input type="file" multiple accept="image/*" onChange={handleFileChange} className="absolute inset-0 opacity-0" />
-                    <div className="text-brand-400 text-5xl mb-4">🖼�?/div>
-                    <p className="text-slate-500 font-bold">{selectedFiles.length > 0 ? `Đã chọn ${selectedFiles.length} ảnh` : 'Bấm đ�?tải ảnh sách hoặc bài tập lên'}</p>
+                    <div className="text-brand-400 text-5xl mb-4">🖼→/div>
+                    <p className="text-slate-500 font-bold">{selectedFiles.length > 0 ? `Đã chọn ${selectedFiles.length} ảnh` : 'Bấm độ tải ảnh sách hoặc bài tập lên'}</p>
                   </div>
                 )}
                 <button onClick={handleGenerate} disabled={isLoading} className="w-full py-5 bg-brand-600 border-b-8 border-brand-800 text-white rounded-2xl font-black text-2xl shadow-xl hover:bg-brand-500 transform active:scale-[0.98] active:translate-y-1 active:border-b-0 transition-all uppercase">
-                  {isLoading ? 'Đang v�?phép thuật...' : '🪄 Tạo Sơ Đ�?Tư Duy'}
+                  {isLoading ? 'Đang vềphép thuật...' : '🪄 Tạo Sơ Đ→Tư Duy'}
                 </button>
               </div>
           </div>
@@ -136,7 +136,7 @@ export const CreativeMindMap: React.FC = () => {
                   </div>
                </div>
                <button onClick={handleSaveImage} className="mt-12 bg-indigo-600 text-white px-12 py-5 rounded-3xl font-black text-xl shadow-xl hover:bg-indigo-700 flex items-center gap-3">
-                  💾 Lưu Poster V�?Máy
+                  💾 Lưu Poster V→Máy
                </button>
             </div>
           )}
